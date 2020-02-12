@@ -12,6 +12,9 @@ export default class Compose extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        if (this.state.msg === "" || this.props.user === ""){
+            return;
+        }
         this.props.sendMessage(this.state.msg)
         this.setState({msg:""})
     }

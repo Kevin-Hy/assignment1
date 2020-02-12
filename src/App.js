@@ -11,8 +11,8 @@ import Compose from './components/Compose'
 
 export default class App  extends React.Component {
   state = {
-    isLoggedIn: true,
-    username: "AshenCat",
+    isLoggedIn: false,
+    username: "",
     messages: [{
       msg: "You're a weeb",
       by: "AshenCat"
@@ -29,7 +29,7 @@ export default class App  extends React.Component {
   }
 
   logout = () => {
-    this.setState({isLoggedIn: false})
+    this.setState({isLoggedIn: false, username: ""})
   }
 
   login = (username) => {
@@ -37,7 +37,7 @@ export default class App  extends React.Component {
   }
 
   sendMessage = (msg) => {
-    this.setState({messages : [...this.state.messages, {msg, by: this.state.username}]})
+      this.setState({messages : [...this.state.messages, {msg, by: this.state.username}]})
   }
 
   style = () => {
@@ -63,7 +63,7 @@ export default class App  extends React.Component {
 
           </Row>
           <Row>
-            <Compose sendMessage={this.sendMessage} />
+            <Compose sendMessage={this.sendMessage} user={this.state.username}/>
           </Row>
         </div>
         </section>
