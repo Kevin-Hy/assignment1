@@ -1,26 +1,74 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Header from './components/Header'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
+import Users from './components/Users'
+import Messages from './components/Messages'
+import Compose from './components/Compose'
+
+export default class App  extends React.Component {
+  state = {
+    isLoggedIn: true,
+    username: "AshenCat",
+    messages: [{
+      msg: "You're a weeb",
+      by: "AshenCat"
+    },
+    {
+      msg: "No, you're a weeb",
+      by: "Eagur"
+    },
+    {
+      msg: "NOOO, You're a weeb",
+      by: "David"
+    }],
+    users: ["Eagur", "David", "AshenCat"]
+  }
+
+  logout = () => {
+    this.setState({isLoggedIn: false})
+  }
+
+  login = (username) => {
+    this.setState({username, isLoggedIn: true})
+  }
+
+  sendMessage = (msg) => {
+    this.setState({messages : [...this.state.messages, {msg, by: this.state.username}]})
+  }
+
+  style = () => {
+    return{
+      border: "1px solid black",
+      height: "100%"
+    }
+  }
+
+  render(){
+    return (
+      <main className="App h-100">
+        <Header isLoggedIn={this.state.isLoggedIn} logout={this.logout} login={this.login}></Header>
+        <section className="container-fluid h-100">
+        <div className="container-fluid">
+          <Row className="justify-content-center h-100">
+            <Col sm={9} className="messageList">
+              {this.state.messages.map(message => <Messages message={message} user={this.state.username}></Messages>)}
+            </Col>
+            <Col  sm={3}>
+              {this.state.users.map(user => <Users user={user}></Users>)}
+            </Col>
+
+          </Row>
+          <Row>
+            <Compose sendMessage={this.sendMessage} />
+          </Row>
+        </div>
+        </section>
+      </main>
+    );
+  }
 }
 
-export default App;
