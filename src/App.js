@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 
-import {Header} from './components/Header'
+import {Header, socket} from './components/Header'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
 
 import Users from './components/Users'
 import Messages from './components/Messages'
@@ -14,18 +15,24 @@ export default class App  extends React.Component {
     isLoggedIn: false,
     username: "",
     messages: [{
-      msg: "You're a weeb",
-      by: "AshenCat"
-    },
-    {
-      msg: "No, you're a weeb",
-      by: "Eagur"
-    },
-    {
-      msg: "NOOO, You're a weeb",
-      by: "David"
+      msg: "You need to be logged in in order to be able to send messages. Please be kind and tame to others in the room.",
+      by: "The Admin"
     }],
-    users: ["Eagur", "David", "AshenCat"]
+    users: []
+  }
+
+  componentDidMount(){
+    socket.on("Message", (msg)=>{
+      this.setState({messages : [...this.state.messages, msg]})
+    })
+
+    socket.on("Joined", (user)=>{
+      this.setState({users:[...this.state.users, user]})
+    })
+
+    socket.on("Leave", (username)=>{
+      this.setState({users:[...this.state.users.filter(user=>user!==username)]})
+    })
   }
 
   logout = (username) => {
@@ -34,6 +41,7 @@ export default class App  extends React.Component {
       username: "",
       users: [...this.state.users.filter(user => user!==username)]
     })
+    socket.emit("Leave", username)
   }
 
   login = (username) => {
@@ -45,7 +53,8 @@ export default class App  extends React.Component {
   }
 
   sendMessage = (msg) => {
-      this.setState({messages : [...this.state.messages, {msg, by: this.state.username}]})
+    this.setState({messages : [...this.state.messages, {msg, by: this.state.username}]})
+    socket.emit("Message", {msg, by: this.state.username})
   }
 
   style = () => {
@@ -66,7 +75,12 @@ export default class App  extends React.Component {
               {this.state.messages.map(message => <Messages message={message} user={this.state.username}></Messages>)}
             </Col>
             <Col  sm={3}>
-              {this.state.users.map(user => <Users user={user}></Users>)}
+              <Container fluid>
+                <h3 className="text-center" style={{"margin":"10px auto"}}>User List</h3>
+              </Container>
+              <Container>
+                {this.state.users.map(user => <Users user={user}></Users>)}
+              </Container>
             </Col>
 
           </Row>
