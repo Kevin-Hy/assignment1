@@ -15,9 +15,8 @@ class Header extends React.Component {
         this.state = {
             username: ""
         }
-        
+        socket = socketIOClient("http://localhost:3001/")
     }
-    
 
     checkLoggedIn = () => {
         if (!this.props.isLoggedIn) {
@@ -26,8 +25,13 @@ class Header extends React.Component {
                     <Navbar.Toggle aria-controls="ToggleBtn" />
                     <Navbar.Collapse id="ToggleBtn">
                     <Form inline onSubmit={this.onSubmit} role="form">
-                        <FormControl name="username" onChange={this.onChange} type="text" placeholder="Enter your name to join..." className="mr-sm-2" />
-                        <Button variant="outline-success" type="submit">Join</Button>
+                        <div className="input-group mb-2">
+                            <div className="input-group-prepend">
+                                <div className="input-group-text">@</div>
+                            </div>
+                            <FormControl name="username" onChange={this.onChange} type="text" placeholder="Enter your name to join..." className="mr-sm-2" />
+                            <Button variant="outline-success" type="submit">Join</Button>
+                        </div>
                     </Form>
                     </Navbar.Collapse> 
                 </React.Fragment>
@@ -39,8 +43,7 @@ class Header extends React.Component {
     }
 
     logout = () => {
-        socket.emit("leave")
-        socket.disconnect();
+        socket.emit("leave", this.state.username)
         this.setState({username: ""})
         this.props.logout(this.state.username);
     }
@@ -50,9 +53,8 @@ class Header extends React.Component {
         if(this.state.username === ""){
             return;
         }
-        socket = socketIOClient("http://localhost:3001/")
-        socket.emit("join", this.state.username)
         this.props.login(this.state.username)
+        socket.emit("Joined", this.state.username)
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
