@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import Header from './components/Header'
+import {Header} from './components/Header'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -28,12 +28,20 @@ export default class App  extends React.Component {
     users: ["Eagur", "David", "AshenCat"]
   }
 
-  logout = () => {
-    this.setState({isLoggedIn: false, username: ""})
+  logout = (username) => {
+    this.setState({
+      isLoggedIn: false,
+      username: "",
+      users: [...this.state.users.filter(user => user!==username)]
+    })
   }
 
   login = (username) => {
-    this.setState({username, isLoggedIn: true})
+    this.setState({
+      username, 
+      isLoggedIn: true,
+      users: [...this.state.users, username]
+    })
   }
 
   sendMessage = (msg) => {

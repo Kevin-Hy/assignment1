@@ -1,14 +1,23 @@
 import React from 'react'
+
 import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
-export default class Header extends React.Component {
+import socketIOClient from "socket.io-client"
 
-    state = {
-        username: ""
+var socket;
+class Header extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            username: ""
+        }
+        
     }
+    
 
     checkLoggedIn = () => {
         if (!this.props.isLoggedIn) {
@@ -25,12 +34,24 @@ export default class Header extends React.Component {
                 )
         }
         else return (
-            <Button onClick={this.props.logout}>Sign Out</Button>
+            <Button onClick={this.logout}>Sign Out</Button>
         )
+    }
+
+    logout = () => {
+        socket.emit("leave")
+        socket.disconnect();
+        this.setState({username: ""})
+        this.props.logout(this.state.username);
     }
 
     onSubmit = (e) => {
         e.preventDefault()
+        if(this.state.username === ""){
+            return;
+        }
+        socket = socketIOClient("http://localhost:3001/")
+        socket.emit("join", this.state.username)
         this.props.login(this.state.username)
     }
 
@@ -45,3 +66,5 @@ export default class Header extends React.Component {
         )
     }
 }
+
+export {Header, socket}
