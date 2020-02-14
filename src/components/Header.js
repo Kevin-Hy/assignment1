@@ -42,15 +42,32 @@ class Header extends React.Component {
         }
         else return (
             <Container  className="float-right w-auto mr-1">
-                <Button onClick={this.logout}>Sign Out</Button>
+                <div className="input-group mb-2">
+                    <div className="input-group-prepend">
+                        <div className="input-group-text">@</div>
+                        <input disabled type="text" style={{"maxWidth":"10vw"}} defaultValue={this.state.username}></input>
+                    </div>
+                    <Button onClick={this.logout}>Sign Out</Button>
+                </div>
             </Container>
         )
     }
 
+    componentDidMount() {
+        socket.on("check-usr", ({found, users})=>{
+            if(!found){
+                //console.log(users)
+                this.props.login(this.state.username)
+                this.props.setUsers(users)
+            }
+            else console.log("name not available")
+        })
+    }
+
     logout = () => {
-        socket.emit("leave", this.state.username)
-        this.setState({username: ""})
         this.props.logout(this.state.username);
+        //console.log(this.state.username)
+        this.setState({username: ""})
     }
 
     onSubmit = (e) => {
@@ -58,8 +75,7 @@ class Header extends React.Component {
         if(this.state.username === ""){
             return;
         }
-        this.props.login(this.state.username)
-        socket.emit("Joined", this.state.username)
+        socket.emit("check-usr", this.state.username)
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
