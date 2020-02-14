@@ -28,23 +28,55 @@ mongoose.connect(conf.cloud, {useNewUrlParser: true, useUnifiedTopology: true}).
     })
 })
 
+let users = ['System', 'The Admin'];
 
 io.on("connection", socket => {
+
     console.log(`A new client connected - (id) : ${socket.id}`);
     socket.on("disconnect", ()=>{
         console.log(`A user disconnected...`)
     })
 
-    socket.on("join", name =>{
-        console.log(`${name}Room`);
-        socket.join(`${name}Room`);
-        socket.to(`${name}Room`).emit("Joined", "someone")
+    socket.on("check-usr", (user)=>{
+        let found = users.includes(user);
+        console.log(`name: "${user}" is ${found ? 'not available': 'available'} `)
+        if(!found) {
+            socket.emit("check-usr", {found, users})
+            users.push(user)
+            socket.broadcast.emit("join", user)
+            console.log(users)
+        }
+        else socket.emit("check-usr", {found})
+    })
+    
+
+    socket.on("listen", ({room, user}) =>{
+        console.log(`${user} is listening @${room}Room`);
+        socket.join(`${room}Room`);
+        socket.to(`${room}Room`).emit("listening", user)
+        
+    })
+
+    socket.on("leave", ({user, room})=>{
+        console.log(`${user} has left the chat...`)
+        socket.leave(`${room}Room`);
+        users=users.filter(usr => user !== usr)
+        console.log(users)
+        socket.broadcast.emit("userLeave", user)
+    })
+
+
+    
+    socket.on("unlisten", ({user, room}) => {
+        console.log(`${user} is not listening @${room}Room`)
+        socket.leave(`${room}Room`);
+        socket.to(`${room}Room`).emit("userUnlisten", user)
     })
 
     socket.on("Message", data => {
-        const res = { by: data.by, msg: data.msg}
+        let res = {by: data.by, msg: data.msg}
         console.log(`${data.by} sent "${data.msg}" to ${data.room}Room`)
-        socket.to(`${data.room}Room`).emit("Message", res)
+        socket.to(`${data.room}Room`).emit("MessageReceive", res)
     })
 })
 
