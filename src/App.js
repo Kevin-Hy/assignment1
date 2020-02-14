@@ -18,11 +18,14 @@ export default class App  extends React.Component {
     username: "",
     messages: [{
       msg: "You need to be in a room and logged-in in order to be able to send messages. Please be kind and tame to others in the room.",
-      by: "The Admin"
+      by: "The Admin",
+      _id: 0
     }],
     users: [],
     room: ""
   }
+
+  ctr=1;
 
   componentDidMount(){
     socket.on("Message", (msg)=>{
@@ -30,42 +33,62 @@ export default class App  extends React.Component {
       console.log("got message")
     })
 
-    socket.on("Joined", (user)=>{
-      this.setState({users:[...this.state.users, user]})
+    socket.on("join", (user) => {
+      this.setState({users: [...this.state.users, user]})
     })
 
-    socket.on("Leave", (username)=>{
-      this.setState({users:[...this.state.users.filter(user=>user!==username)]})
+    socket.on("userLeave", (user)=>{
+      //console.log(`${user} logging out`)
+      this.setState({users: [...this.state.users.filter(usr => usr !== user)]})
+    })
+
+    socket.on("listening", (user)=>{
+      this.setState({messages: [...this.state.messages, {msg: `${user} is now listening at this room.`, by: "System", _id: this.ctr+=1}]})
+    })
+
+    socket.on("userUnlisten", (user)=> {
+      this.setState({messages: [...this.state.messages, {msg: `${user} is not listening to this room anymore.`, by: "System", _id: this.ctr+=1}]})
+    })
+
+    socket.on("MessageReceive", (res)=>{
+      console.log("incoming message")
+      this.setState({messages: [...this.state.messages, {msg: res.msg, by: res.by, _id: this.ctr+=1}]})
     })
   }
 
+  setUsers = (userlist) => {
+    this.setState({users: [...userlist, this.state.username]})
+  }
+
   logout = (username) => {
+    //console.log(`${username} logging out`)
+    socket.emit("leave", {user:username, room:this.state.room})
     this.setState({
       isLoggedIn: false,
       username: "",
-      users: [...this.state.users.filter(user => user!==username)]
+      users: [],
+      room: "",
+      messages: []
     })
-    socket.emit("Leave", username)
   }
 
   login = (username) => {
     this.setState({
       username, 
-      isLoggedIn: true,
-      users: [...this.state.users, username]
+      isLoggedIn: true
     })
   }
 
   sendMessage = (msg) => {
     msg=msg.trim()
     if (this.state.room !== "" && this.state.username !== "") {
-      this.setState({messages : [...this.state.messages, {msg, by: this.state.username}]})
+      this.setState({messages : [...this.state.messages, {msg, by: this.state.username, _id: this.ctr+=1}]})
       socket.emit("Message", {msg, by: this.state.username, room: this.state.room})
     }
     else if (this.state.room === "")
-      this.setState({messages : [...this.state.messages, {msg: "You have to be in a room to send a message!", by: "System"}]})
+      this.setState({messages : [...this.state.messages, {msg: "You have to be in a room to send a message!", by: "System", _id: this.ctr+=1}]})
     else if(this.state.username === "")
-      this.setState({messages : [...this.state.messages, {msg: "You need to be logged-in to send a message!", by: "System"}]})
+      this.setState({messages : [...this.state.messages, {msg: "You need to be logged-in to send a message!", by: "System", _id: this.ctr+=1}]})
       //console.log(`${msg}, ${this.state.username}, ${this.state.room}`)
   }
 
@@ -73,16 +96,21 @@ export default class App  extends React.Component {
 
   join = (e) => {
     //console.log(e.target.name)
-    this.setState({room: e.target.name})
-    socket.emit("join", e.target.name)
-    this.setState({messages: [...this.state.messages, {msg: `You joined ${e.target.name} room`, by: "System"}]})
+    socket.emit("unlisten", {user:this.state.username, room:this.state.room})
+    this.setState({room: e.target.name}, () =>{
+      socket.emit("listen", {user:this.state.username, room:this.state.room})
+    })
+    this.setState({messages: [...this.state.messages, {msg: `You're now listening  @${e.target.name} room`, by: "System", _id: this.ctr+=1}]})
+    
   }
+
+  
 
   render(){
     return (
       <main className="App h-100">
-        <Header isLoggedIn={this.state.isLoggedIn} logout={this.logout} login={this.login}></Header>
-        <section className="container-fluid h-100">
+        <Header setUsers={this.setUsers} isLoggedIn={this.state.isLoggedIn} logout={this.logout} login={this.login} ></Header>
+        <section className={this.state.username === "" ? "container-fluid h-100 ninja" : "container-fluid h-100"}>
         <div className="container-fluid">
           <Row className="justify-content-center h-100">
             <Col sm={9}>
@@ -91,7 +119,7 @@ export default class App  extends React.Component {
                   <h5 style={{'display':'inline-block'}}>Messages</h5>
                 </div>
                 <div className="messageList">
-                  {this.state.messages.map(message => <Messages message={message} user={this.state.username}></Messages>)}
+                  {this.state.messages.map(message => <Messages key={message._id} message={message} user={this.state.username}></Messages>)}
                   <div>{' '}</div>
                 </div>
               </div>
@@ -113,8 +141,8 @@ export default class App  extends React.Component {
                 </Container>
                 <Container fluid className="p-0">
                   <Card className="text-center userListOuter">
-                    <Card.Header>User List</Card.Header>
-                    <Card.Body>{this.state.users.map(user => <Users user={user}></Users>)}</Card.Body>
+                    <Card.Header>Global User List</Card.Header>
+                    <Card.Body>{this.state.users.map(user => <Users key={user} user={user}></Users>)}</Card.Body>
                   </Card>
                 </Container>
               </Container>
