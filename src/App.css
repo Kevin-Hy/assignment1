@@ -39,3 +39,7 @@ body, html {
 .userList{
     color: #000;
 }
+
+.ninja {
+    display: none;
+}
