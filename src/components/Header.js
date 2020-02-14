@@ -6,6 +6,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
 import socketIOClient from "socket.io-client"
+import Container from 'react-bootstrap/Container';
 
 var socket;
 class Header extends React.Component {
@@ -24,21 +25,25 @@ class Header extends React.Component {
                 <React.Fragment>
                     <Navbar.Toggle aria-controls="ToggleBtn" />
                     <Navbar.Collapse id="ToggleBtn">
-                    <Form inline onSubmit={this.onSubmit} role="form">
-                        <div className="input-group mb-2">
-                            <div className="input-group-prepend">
-                                <div className="input-group-text">@</div>
+                    <Container className="float-right w-auto mr-1">
+                        <Form inline onSubmit={this.onSubmit} role="form-inline" className="w-auto ">
+                            <div className="input-group mb-2">
+                                <div className="input-group-prepend">
+                                    <div className="input-group-text">@</div>
+                                </div>
+                                <FormControl name="username" onChange={this.onChange} type="text" placeholder="Enter your name to join..." className="mr-sm-2" />
+                                <Button variant="outline-success" type="submit">Join</Button>
                             </div>
-                            <FormControl name="username" onChange={this.onChange} type="text" placeholder="Enter your name to join..." className="mr-sm-2" />
-                            <Button variant="outline-success" type="submit">Join</Button>
-                        </div>
-                    </Form>
+                        </Form>
+                    </Container>
                     </Navbar.Collapse> 
                 </React.Fragment>
                 )
         }
         else return (
-            <Button onClick={this.logout}>Sign Out</Button>
+            <Container  className="float-right w-auto mr-1">
+                <Button onClick={this.logout}>Sign Out</Button>
+            </Container>
         )
     }
 
