@@ -24,7 +24,18 @@ body, html {
 
 .messageList {
     display: block !important;
-    min-height: 80vh;
-    max-height: 80vh;
     overflow-y: scroll;
+    max-height: calc(71vh - 15px);
+    min-height: calc(71vh - 15px);
+}
+
+.userListOuter {
+    display: block !important;
+    max-height: calc(45vh - 15px);
+    min-height: calc(45vh - 15px);
+    overflow-y: scroll;
+}
+
+.userList{
+    color: #000;
 }
