@@ -47,34 +47,59 @@ Backend - `http://localhost:3001`
 
 ###6 - Socket.io
 1. - [x] Listen for when a new socket is created
-         - [x] save when a socket connection is created in history
+   
+   - [x] save when a socket connection is created in history
+
 2. - [x] Listen for when a new user joins a room
-         - [:thought_balloon:] echo to the client that they have connected ~~(via emit).~~ The team has decided to let react handle this
-         - [x] echo to everyone in the room that a person has connected
-         - [-] save to ~~history~~ ("Event") event that a new socket connection is made with timestamp
-         - [x] save to history the username and room joined
+
+   - [:thought_balloon:] echo to the client that they have connected ~~(via emit).~~ The team has decided to let react handle this
+
+   - [x] echo to everyone in the room that a person has connected
+
+   - [-] save to ~~history~~ ("Event") event that a new socket connection is made with timestamp
+
+   - [x] save to history the username and room joined
+
 3. - [x] Listen for client input
-         - [x] update the room of the new input
+
+   - [x] update the room of the new input
+
 4. - [x] Listen for switching room
-         - [x] leave the room and join a new room
-         - [x] echo to the user the new room connected
-         - [x] send a message to the old room that the user has left
-         - [x] update to history the username and room joined
+
+   - [x] leave the room and join a new room
+
+   - [x] echo to the user the new room connected
+
+   - [x] send a message to the old room that the user has left
+
+   - [x] update to history the username and room joined
+
 5. - [x] Listen for the user disconnect
-         - [x] update the list of users in the chat the user has disconnected
-         - [x] save in event log user disconnected with timestamp
+
+   - [x] update the list of users in the chat the user has disconnected
+
+   - [x] save in event log user disconnected with timestamp
 
 ###7 - Express Api
 6. - [x] Get a list of all Chat History
-         - [x] GET request `/api/history`
-         - [x] Returns a JSON list of chat or game history records
+
+   - [x] GET request `/api/history`
+
+   - [x] Returns a JSON list of chat or game history records
+
 7. - [x] Get a list Chat by room name
-         - [x] POST request `/api/roomhistory`
-         - parameters: roomname
-         - [x] Returns a JSON list of chat for specific room name
+
+   - [x] POST request `/api/roomhistory`
+
+   - parameters: roomname
+
+   - [x] Returns a JSON list of chat for specific room name
+
 8. - [x] Get a list of all Events
-         - [x] GET request `/api/eventlog`
-         - [x] returns a JSON list of all events in the event log
+
+   - [x] GET request `/api/eventlog`
+   
+   - [x] returns a JSON list of all events in the event log
 
 ###8 - Mongoose ORM and MongoDb
 - [x] Store data in mongoDb using mlabs..
