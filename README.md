@@ -24,28 +24,28 @@ Backend - `http://localhost:3001`
 
 ## Requirements
 
-###1 - Teams
+### 1 - Teams
  Since this is a three man project, the UI bonus section is required. The team used React as the front-end framework.
 
-###2 - Backend server
+### 2 - Backend server
 [x] Node.js
 [x] Express
 [x] Socket.io
 [x] Node packages
 
-###3 - Database
+### 3 - Database
  The database connection is configured to check if it can connect to the cloud db, if not, connect locally or ***CRASH***
 
 [x] Hosted on mongodb cloud atlast
 
-###4 - User Interface
+### 4 - User Interface
  The user interface? Html/css/react/bootstrap
 
-###5 - Specification
+### 5 - Specification
  [x] Chat app
  [ ] Game app
 
-###6 - Socket.io
+### 6 - Socket.io
 1. - [x] Listen for when a new socket is created
    
    - [x] save when a socket connection is created in history
