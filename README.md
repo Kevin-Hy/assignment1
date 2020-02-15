@@ -117,13 +117,13 @@ Backend - `http://localhost:3001`
 
 ## Dependencies
 
-####Front End
+#### Front End
 |Dependency|Used for|
 |---|---|
 |react-bootstrap|Core css design of the project|
 |socket.io-client|requirement|
 
-####Back end
+#### Back end
 |Dependency|Used for|
 |---|---|
 |body-parser|simplifies post request objects (overkill but good stuff)|
