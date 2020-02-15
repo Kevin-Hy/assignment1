@@ -1,68 +1,111 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## MEME-bers
+Igor Teixeira Belem - 100907699
+Klifford Agujar ü - 101145584
+Kevin Hy - 101078240
 
-## Available Scripts
+EMAILS:
+kevin.hy@georgebrown.ca
+klifford.agujar@georgebrown.ca
+igor.teixeirabelem@georgebrown.ca
 
-In the project directory, you can run:
+## Deployment
 
-### `npm start`
+#### Heroku link
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+#### dev-local
+`npm run start` - start the react app
+on a seperate cmd...
+`cd ./backend`
+`npm run start:server` - start the backend server
 
-### `npm test`
+Frontend - `http://localhost:3000`
+Backend - `http://localhost:3001`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Requirements
 
-### `npm run build`
+** 1 - Teams **
+ Since this is a three man project, the UI bonus section is required. The team used React as the front-end framework.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+** 2 - Backend server **
+[x] Node.js
+[x] Express
+[x] Socket.io
+[x] Node packages
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+** 3 - Database **
+ The database connection is configured to check if it can connect to the cloud db, if not, connect locally or ***CRASH***
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[x] Hosted on mongodb cloud atlast
 
-### `npm run eject`
+** 4 - User Interface **
+ The user interface? Html/css/react/bootstrap
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+** 5 - Specification **
+ [x] Chat app
+ [ ] Game app
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+** 6 - Socket.io **
+[x] Listen for when a new socket is created
+    - [x] save when a socket connection is created in history
+[x] Listen for when a new user joins a room
+    - [:thought_balloon:] echo to the client that they have connected ~~(via emit).~~ The team has decided to let react handle this
+    - [x] echo to everyone in the room that a person has connected
+    - [-] save to ~~history~~ ("Event") event that a new socket connection is made with timestamp
+    - [x] save to history the username and room joined
+[x] Listen for client input
+    - [x] update the room of the new input
+[x] Listen for switching room
+    - [x] leave the room and join a new room
+    - [x] echo to the user the new room connected
+    - [x] send a message to the old room that the user has left
+    - [x] update to history the username and room joined
+[x] Listen for the user disconnect
+    - [x] update the list of users in the chat the user has disconnected
+    - [x] save in event log user disconnected with timestamp
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+** 7 - Express Api **
+[x] Get a list of all Chat History
+    - [x] GET request `/api/history`
+    - [x] Returns a JSON list of chat or game history records
+[x] Get a list Chat by room name
+    - [x] POST request `/api/roomhistory`
+          - parameters: roomname
+    - [x] Returns a JSON list of chat for specific room name
+[x] Get a list of all Events
+    - [x] GET request `/api/eventlog`
+    - [x] returns a JSON list of all events in the event log
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+** 8 - Mongoose ORM and MongoDb **
+[x] Store data in mongoDb using mlabs..
+[x] Build a model and schema to save user history
+[x] Build model and scheme to save socket.io events
+[:thought_balloon:] Write a mongoose query to retrieve all user history
+[:thought_balloon:] Write a mongoose query to retrieve all user history by room name
+[:thought_balloon:] Write a mongoose query to retrieve all event lgos
 
-## Learn More
+## Dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+####Front End
+|Dependency|Used for|
+|---|---|
+|react-bootstrap|Core css design of the project|
+|---|---|
+|socket.io-client|requirement|
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+####Back end
+|Dependency|Used for|
+|---|---|
+|body-parser|simplifies post request objects (overkill but good stuff)|
+|---|---|
+|cors|cross origin request set to \*:\* by default|
+|---|---|
+|express| *requirement*|
+|---|---|
+|helmet|modifies http headers for security|
+|---|---|
+|mongoose| *requirement*|
+|---|---|
+|morgan|logs all the requests made to the express app|
+|---|---|
+|socket.io|*requirement*|
