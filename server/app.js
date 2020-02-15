@@ -159,6 +159,7 @@ io.on("connection", socket => {
 
 var wstream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
 
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(cors());
 app.use(morgan('common', {stream: wstream}))
 app.use(helmet())
