@@ -1,17 +1,31 @@
+## Design Flaw
+The app doesn't logout the user on force close (e.g. close browser tab). 
+
+What effect does it have? The userlist on the server will never remove the username on the userlist, making the username unavailable till server reset
+
+What steps have we taken? We tried socket emitting on the hook: componentWillUnmount. But apparently, socket object is destroyed before it can emit(?). Thinking of using axios to make a delete request to the api, but we're guessing it wouldn't work too...
+
 ## MEME-bers
+### Hard working plebs
 Igor Teixeira Belem - 100907699
+
 Klifford Agujar ü - 101145584
+
 Kevin Hy - 101078240
 
 EMAILS:
+
 kevin.hy@georgebrown.ca
+
 klifford.agujar@georgebrown.ca
+
 igor.teixeirabelem@georgebrown.ca
 
 ## Deployment
-
 #### Heroku link
+`https://young-reef-86978.herokuapp.com/`
 
+***note: this was actually torture ._.***
 
 #### dev-local
 `npm run start` - start the react app
@@ -20,6 +34,7 @@ on a seperate cmd...
 `npm run start:server` - start the backend server
 
 Frontend - `http://localhost:3000`
+
 Backend - `http://localhost:3001`
 
 ## Requirements
@@ -28,22 +43,22 @@ Backend - `http://localhost:3001`
  Since this is a three man project, the UI bonus section is required. The team used React as the front-end framework.
 
 ### 2 - Backend server
-[x] Node.js
-[x] Express
-[x] Socket.io
-[x] Node packages
+- [x] Node.js
+- [x] Express
+- [x] Socket.io
+- [x] Node packages
 
 ### 3 - Database
  The database connection is configured to check if it can connect to the cloud db, if not, connect locally or ***CRASH***
 
-[x] Hosted on mongodb cloud atlast
+- [x] Hosted on mongodb cloud atlast
 
 ### 4 - User Interface
  The user interface? Html/css/react/bootstrap
 
 ### 5 - Specification
- [x] Chat app
- [ ] Game app
+- [x] Chat app
+- [ ] Game app
 
 ### 6 - Socket.io
 1. - [x] Listen for when a new socket is created
