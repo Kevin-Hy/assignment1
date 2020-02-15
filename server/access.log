@@ -1,0 +1,7 @@
+::1 - - [15/Feb/2020:01:11:49 +0000] "GET / HTTP/1.1" 404 1924
+::1 - - [15/Feb/2020:01:11:50 +0000] "GET /favicon.ico HTTP/1.1" 404 1946
+::ffff:127.0.0.1 - - [15/Feb/2020:02:12:01 +0000] "GET /api/roomhistory HTTP/1.1" 404 2057
+::1 - - [15/Feb/2020:02:13:20 +0000] "GET /api/roomhistory HTTP/1.1" 404 2057
+::1 - - [15/Feb/2020:02:14:42 +0000] "GET /api/history HTTP/1.1" 200 620
+::1 - - [15/Feb/2020:02:21:48 +0000] "POST /api/eventlog HTTP/1.1" 404 2020
+::1 - - [15/Feb/2020:02:21:52 +0000] "GET /api/eventlog HTTP/1.1" 200 10544
