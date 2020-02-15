@@ -98,7 +98,7 @@ Backend - `http://localhost:3001`
 8. - [x] Get a list of all Events
 
    - [x] GET request `/api/eventlog`
-   
+
    - [x] returns a JSON list of all events in the event log
 
 ###8 - Mongoose ORM and MongoDb
@@ -119,11 +119,13 @@ Backend - `http://localhost:3001`
 
 ####Front End
 |Dependency|Used for|
+|---|---|
 |react-bootstrap|Core css design of the project|
 |socket.io-client|requirement|
 
 ####Back end
 |Dependency|Used for|
+|---|---|
 |body-parser|simplifies post request objects (overkill but good stuff)|
 |cors|cross origin request set to \*:\* by default|
 |express| *requirement*|
