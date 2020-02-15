@@ -149,7 +149,9 @@ export default class App  extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Compose sendMessage={this.sendMessage} user={this.state.username}/>
+            <Container fluid>
+              <Compose sendMessage={this.sendMessage} user={this.state.username}/>
+            </Container>
           </Row>
         </div>
         </section>

@@ -43,3 +43,17 @@ body, html {
 .ninja {
     display: none;
 }
+
+.type-msg {
+    border-radius: 15px 0 0 15px !important;
+    background-color: rgba(0,0,0,0.3) !important;
+    border: 0 !important;
+    overflow-y: auto;
+    cursor: pointer;
+}
+
+.send-btn{
+    border-radius: 0 15px 15px 0 !important;
+    background-color: rgba(0,0,0,0.3) !important;
+    border: 0 !important;
+}

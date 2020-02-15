@@ -1,7 +1,5 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 export default class Compose extends React.Component {
@@ -34,19 +32,13 @@ export default class Compose extends React.Component {
 
     render() {
         return (
-            <Form onSubmit={this.onSubmit} className="w-100">
-                <div className="container">
-                <Row>
-                    <Col sm={10}>
-                        <Form.Control value={this.state.msg} name="msg" 
-                        onChange={this.onChange} as="textarea" rows="3" 
-                        onKeyDown={this.handleKeyDown}
-                        />
-                    </Col>
-                    <Col sm={2}>
-                        <Button type="submit">Submit</Button>
-                    </Col>
-                </Row>
+            <Form onSubmit={this.onSubmit} className="w-100 mt-3">
+                <div className="input-group">
+                    <Form.Control value={this.state.msg} name="msg" 
+                    onChange={this.onChange} as="textarea" rows="3" 
+                    onKeyDown={this.handleKeyDown}
+                    className="left-rnd type-msg" />
+                    <Button classname="input-group-text send-btn" type="submit">Submit</Button>
                 </div>
             </Form>
         )
