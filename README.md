@@ -1,9 +1,9 @@
 ## Branches
-- Master : `https://github.com/Kevin-Hy/assignment1/tree/master`
+- Master : `https://github.com/Kevin-Hy/assignment1/tree/master` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
   - Build we finished
-- Heroku  : `https://github.com/Kevin-Hy/assignment1/tree/heroku`
+- Heroku  : `https://github.com/Kevin-Hy/assignment1/tree/heroku` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
   - Build we used for heroku deployment
-## Design Flaw
+## Design Flaw (on a non-required feature)
 The app doesn't logout the user on force close (e.g. close browser tab). 
 
 What effect does it have? The userlist on the server will never remove the username on the userlist, making the username unavailable till server reset
