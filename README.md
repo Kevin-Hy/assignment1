@@ -42,6 +42,13 @@ Frontend - `http://localhost:3000`
 
 Backend - `http://localhost:3001`
 
+#### Express API
+- GET - `/api/history`
+  - Returns a JSON object of the list of all chat history
+- POST - `/api/roomhistory` 
+  - Requires a `roomname` in the post request, then returns a JSON object of the list of all chat history in that room
+- GET -`/api/eventlog`
+  - Returns a JSON object of all the eventlog made by the system
 ## Requirements
 
 ### 1 - Teams
