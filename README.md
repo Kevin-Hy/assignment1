@@ -1,3 +1,8 @@
+## Branches
+- Master : `https://github.com/Kevin-Hy/assignment1/tree/master`
+  - Build we finished
+- Heroku  : `https://github.com/Kevin-Hy/assignment1/tree/heroku`
+  - Build we used for heroku deployment
 ## Design Flaw
 The app doesn't logout the user on force close (e.g. close browser tab). 
 
