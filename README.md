@@ -44,12 +44,12 @@ igor.teixeirabelem@georgebrown.ca
 - Heroku  : `https://github.com/Kevin-Hy/assignment1/tree/heroku` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
   - Build we used for heroku deployment
   
-## Design Flaw (on a non-required feature)
-The app doesn't logout the user on force close (e.g. close browser tab). 
+## (HOT FIXED) ~~Design Flaw (on a non-required feature)~~
+~~The app doesn't logout the user on force close (e.g. close browser tab).~~ 
 
-What effect does it have? The userlist on the server will never remove the username on the userlist, making the username unavailable till server reset
+~~What effect does it have? The userlist on the server will never remove the username on the userlist, making the username unavailable till server reset~~
 
-What steps have we taken? We tried socket emitting on the hook: componentWillUnmount. But apparently, socket object is destroyed before it can emit(?). Thinking of using axios to make a delete request to the api, but we're guessing it wouldn't work too...
+~~What steps have we taken? We tried socket emitting on the hook: componentWillUnmount. But apparently, socket object is destroyed before it can emit(?). Thinking of using axios to make a delete request to the api, but we're guessing it wouldn't work too...~~
 
 
 ## Requirements
