@@ -35,8 +35,8 @@ igor.teixeirabelem@georgebrown.ca
 #### dev-local
 `npm run start` - start the react app
 on a seperate cmd...
-`cd ./backend`
-`npm run start:server` - start the backend server
+
+`cd ./backend` then `npm run start:server` - start the backend server
 
 Frontend - `http://localhost:3000`
 
@@ -100,7 +100,7 @@ Backend - `http://localhost:3001`
 
    - [x] save in event log user disconnected with timestamp
 
-###7 - Express Api
+### 7 - Express Api
 6. - [x] Get a list of all Chat History
 
    - [x] GET request `/api/history`
@@ -121,7 +121,7 @@ Backend - `http://localhost:3001`
 
    - [x] returns a JSON list of all events in the event log
 
-###8 - Mongoose ORM and MongoDb
+### 8 - Mongoose ORM and MongoDb
 - [x] Store data in mongoDb using mlabs..
 
 - [x] Build a model and schema to save user history
