@@ -17,7 +17,7 @@ export default class App  extends React.Component {
     isLoggedIn: false,
     username: "",
     messages: [{
-      msg: "You need to be in a room and logged-in in order to be able to send messages. Please be kind and tame to others in the room.",
+      msg: "You need to be in a room and logged-in in order to be able to send messages. Please remember to be respectful of others and abide by the rules.",
       by: "The Admin",
       _id: 0
     }],
@@ -30,7 +30,7 @@ export default class App  extends React.Component {
   componentDidMount(){
     socket.on("Message", (msg)=>{
       this.setState({messages : [...this.state.messages, msg]})
-      console.log("got message")
+      console.log("message received.")
     })
 
     socket.on("join", (user) => {
