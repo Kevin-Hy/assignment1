@@ -53,7 +53,18 @@ class Header extends React.Component {
         )
     }
 
+    
+    sendLastEmit = () => socket.emit("user-disconnect", this.state.username)
+    
+    componentWillUnmount() {
+        this.sendLastEmit();
+        window.removeEventListener('beforeunload', this.sendLastEmit)
+    }
+
     componentDidMount() {
+
+        window.addEventListener("beforeunload", this.sendLastEmit)
+
         socket.on("check-usr", ({found, users})=>{
             if(!found){
                 //console.log(users)
