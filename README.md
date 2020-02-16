@@ -1,31 +1,3 @@
-## Branches
-- Master : `https://github.com/Kevin-Hy/assignment1/tree/master` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
-  - Build we finished
-- Heroku  : `https://github.com/Kevin-Hy/assignment1/tree/heroku` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
-  - Build we used for heroku deployment
-## Design Flaw (on a non-required feature)
-The app doesn't logout the user on force close (e.g. close browser tab). 
-
-What effect does it have? The userlist on the server will never remove the username on the userlist, making the username unavailable till server reset
-
-What steps have we taken? We tried socket emitting on the hook: componentWillUnmount. But apparently, socket object is destroyed before it can emit(?). Thinking of using axios to make a delete request to the api, but we're guessing it wouldn't work too...
-
-## MEME-bers
-### Hard working plebs
-Igor Teixeira Belem - 100907699
-
-Klifford Agujar ü - 101145584
-
-Kevin Hy - 101078240
-
-EMAILS:
-
-kevin.hy@georgebrown.ca
-
-klifford.agujar@georgebrown.ca
-
-igor.teixeirabelem@georgebrown.ca
-
 ## Deployment
 #### Heroku link
 `https://young-reef-86978.herokuapp.com/`
@@ -49,6 +21,37 @@ Backend - `http://localhost:3001`
   - Requires a `roomname` in the post request, then returns a JSON object of the list of all chat history in that room
 - GET -`/api/eventlog`
   - Returns a JSON object of all the eventlog made by the system
+
+## MEME-bers
+### Hard working plebs
+Igor Teixeira Belem - 100907699
+
+Klifford Agujar ü - 101145584
+
+Kevin Hy - 101078240
+
+### EMAILS:
+
+kevin.hy@georgebrown.ca
+
+klifford.agujar@georgebrown.ca
+
+igor.teixeirabelem@georgebrown.ca
+
+## Branches
+- Master : `https://github.com/Kevin-Hy/assignment1/tree/master` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
+  - Build we finished
+- Heroku  : `https://github.com/Kevin-Hy/assignment1/tree/heroku` or (forked) `https://github.com/AshenCat/assignment1/tree/master`
+  - Build we used for heroku deployment
+  
+## Design Flaw (on a non-required feature)
+The app doesn't logout the user on force close (e.g. close browser tab). 
+
+What effect does it have? The userlist on the server will never remove the username on the userlist, making the username unavailable till server reset
+
+What steps have we taken? We tried socket emitting on the hook: componentWillUnmount. But apparently, socket object is destroyed before it can emit(?). Thinking of using axios to make a delete request to the api, but we're guessing it wouldn't work too...
+
+
 ## Requirements
 
 ### 1 - Teams
