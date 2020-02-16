@@ -80,6 +80,18 @@ io.on("connection", socket => {
         console.log(`A user disconnected...`)
     })
 
+    socket.on("user-disconnect", (user, room)=>{
+        console.log(`${user} force disconnected...`)
+        users=users.filter(usr => user !== usr)
+        console.log(users)
+        Model.eventModel().create({
+            type: "DISCONNECT",
+            event: `${user} force disconnected`,
+            user: socket.id
+        })
+        socket.broadcast.emit("userLeave", user)
+    })
+
     socket.on("check-usr", (user)=>{
         let found = users.includes(user);
         console.log(`name: "${user}" is ${found ? 'not available': 'available'} `)
@@ -108,10 +120,10 @@ io.on("connection", socket => {
         console.log(`${user} is listening @${room}Room`);
         socket.join(`${room}Room`);
         socket.to(`${room}Room`).emit("listening", user)
-        Model.eventModel().create({
-            type: "LISTENING",
-            event: `${user} is now listening @${room}Room`,
-            user: socket.id
+        Model.messageModel().create({
+            room: `${room}Room`,
+            msg: `${user} is now listening @${room}Room`,
+            by: `System`
         })
     })
 
@@ -132,10 +144,10 @@ io.on("connection", socket => {
         console.log(`${user} is not listening @${room}Room`)
         socket.leave(`${room}Room`);
         socket.to(`${room}Room`).emit("userUnlisten", user)
-        Model.eventModel().create({
-            type: "UNLISTEN",
-            event: `${user} is not listening @${room}Room`,
-            user: socket.id
+        Model.messageModel().create({
+            room: `${room}Room`,
+            msg: `${user} is not listening @${room}Room`,
+            by: `System`
         })
     })
 
