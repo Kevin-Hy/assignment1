@@ -16,7 +16,7 @@ class Header extends React.Component {
         this.state = {
             username: ""
         }
-        socket = socketIOClient(":3001")
+        socket = socketIOClient()
     }
 
     checkLoggedIn = () => {
